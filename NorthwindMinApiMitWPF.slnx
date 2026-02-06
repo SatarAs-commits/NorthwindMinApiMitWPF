@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="MinApiWPF/MinApiWPF.csproj" Id="8315e9fe-297f-48d6-b94d-148effbf3412" />
+  <Project Path="NorthwindMinApiMitWPF/MinApiBackend.csproj" />
+  <Project Path="NORTHWNDDb/NORTHWNDDb.csproj" />
+</Solution>
