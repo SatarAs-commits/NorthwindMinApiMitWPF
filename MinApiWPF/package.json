@@ -1,0 +1,12 @@
+{
+  "name": "minapiwpf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "swag": "openapi-generator-cli generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

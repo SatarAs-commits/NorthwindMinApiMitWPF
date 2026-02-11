@@ -1,0 +1,275 @@
+openapi: 3.0.4
+info:
+  title: NorthwindMinApiMitWPF
+  version: v1
+servers:
+- url: /
+tags:
+- name: MinApiBackend
+paths:
+  /dbtest/Categories:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OkMessage"
+          description: OK
+      tags:
+      - MinApiBackend
+  /employees:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/EmployeeDto"
+                type: array
+          description: OK
+      tags:
+      - MinApiBackend
+  /customers:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/CustomerDto"
+                type: array
+          description: OK
+      tags:
+      - MinApiBackend
+  /products:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/ProductDto"
+                type: array
+          description: OK
+      tags:
+      - MinApiBackend
+  /orders:
+    get:
+      parameters:
+      - explode: true
+        in: query
+        name: EmployeeId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: CustomerId
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/OrderDto"
+                type: array
+          description: OK
+      tags:
+      - MinApiBackend
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderPostDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - MinApiBackend
+  /orderdetails:
+    get:
+      parameters:
+      - explode: true
+        in: query
+        name: OrderId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/OrderDetailDto"
+                type: array
+          description: OK
+      tags:
+      - MinApiBackend
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderdetailPostDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - MinApiBackend
+  /orders/{id}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: OK
+      tags:
+      - MinApiBackend
+components:
+  schemas:
+    CustomerDto:
+      additionalProperties: false
+      example:
+        contactName: contactName
+      properties:
+        contactName:
+          nullable: true
+          type: string
+      type: object
+    EmployeeDto:
+      additionalProperties: false
+      example:
+        firstName: firstName
+        lastName: lastName
+        employeeId: 0
+      properties:
+        employeeId:
+          format: int32
+          type: integer
+        firstName:
+          nullable: true
+          type: string
+        lastName:
+          nullable: true
+          type: string
+      type: object
+    OkMessage:
+      additionalProperties: false
+      example:
+        nr: 0
+        isOk: true
+      properties:
+        isOk:
+          type: boolean
+        nr:
+          format: int32
+          type: integer
+      type: object
+    OrderDetailDto:
+      additionalProperties: false
+      example:
+        unitPrice: 1.4658129805029452
+        product: product
+        quantity: 6
+        orderId: 0
+        category: category
+      properties:
+        orderId:
+          format: int32
+          type: integer
+        product:
+          nullable: true
+          type: string
+        category:
+          nullable: true
+          type: string
+        quantity:
+          format: int32
+          type: integer
+        unitPrice:
+          format: double
+          type: number
+      type: object
+    OrderDto:
+      additionalProperties: false
+      example:
+        orderId: 0
+        isShipped: true
+        nrItems: 6
+        orderDate: orderDate
+      properties:
+        orderId:
+          format: int32
+          type: integer
+        orderDate:
+          nullable: true
+          type: string
+        isShipped:
+          type: boolean
+        nrItems:
+          format: int32
+          type: integer
+      type: object
+    OrderPostDto:
+      additionalProperties: false
+      example:
+        customerId: customerId
+        employeeId: 0
+      properties:
+        employeeId:
+          format: int32
+          type: integer
+        customerId:
+          nullable: true
+          type: string
+      type: object
+    OrderdetailPostDto:
+      additionalProperties: false
+      example:
+        amount: 1
+        productId: 6
+        orderId: 0
+      properties:
+        orderId:
+          format: int32
+          type: integer
+        productId:
+          format: int32
+          type: integer
+        amount:
+          format: int32
+          type: integer
+      type: object
+    ProductDto:
+      additionalProperties: false
+      example:
+        productName: productName
+      properties:
+        productName:
+          nullable: true
+          type: string
+      type: object
+

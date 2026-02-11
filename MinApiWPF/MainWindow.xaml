@@ -5,21 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MinApiWPF"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="MainWindow" Height="450" Width="800">
-  <!--
+
   <DockPanel>
     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
       <Label Content="Employee"/>
-      <ComboBox Name="cboEmployees" DisplayMemberPath="Name"
- SelectionChanged="CboSelectionChanged" Width="150"/>
+      <ComboBox Name="cboEmployees"
+SelectionChanged="CboSelectionChanged" Width="150">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding LastName}"/>
+              <TextBlock Text=" "></TextBlock>
+              <TextBlock Text="{Binding FirstName}"></TextBlock>
+            </StackPanel>
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
       <Label Content="Customer"/>
-      <ComboBox Name="cboCustomers" DisplayMemberPath="Name"
+      <ComboBox Name="cboCustomers" DisplayMemberPath="ContactName"
  SelectionChanged="CboSelectionChanged" Width="150"/>
       <Button Content="Add New Order" Click="BtnNewOrder_Clicked" Margin="5,0,0,0"/>
       <Button Content="Delete Selected Order" Click="BtnDeleteOrder_Clicked" Margin="5,0,0,0"/>
     </StackPanel>
     <DataGrid DockPanel.Dock="Left" Name="grdOrders" Width="265" Margin="3"
- SelectionChanged="GrdOrders_SelectionChanged"/>
+              AutoGenerateColumns="False" IsReadOnly="True"
+ SelectionChanged="GrdOrders_SelectionChanged">
+      <DataGrid>
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Order-ID" Binding="{Binding OrderId}"></DataGridTextColumn>
+          <DataGridTextColumn Header="Datum" Binding="{Binding OrderDate, StringFormat=d}"></DataGridTextColumn>
+        </DataGrid.Columns>
+      </DataGrid>
+    </DataGrid>
     <Grid DockPanel.Dock="Right" Width="190" Margin="3">
       <Grid.RowDefinitions>
         <RowDefinition Height="25"/>
@@ -37,5 +56,5 @@
       <Button Grid.Row="2" Grid.Column="1" Content="Add Item" Click="AddOrderDetail_Clicked"/>
     </Grid>
     <DataGrid Name="grdOrderDetails" Margin="3"/>
-  </DockPanel>-->
+  </DockPanel>
 </Window>
