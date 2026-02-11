@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MinApiWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+  <!--
   <DockPanel>
     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
       <Label Content="Employee"/>
@@ -36,5 +37,5 @@
       <Button Grid.Row="2" Grid.Column="1" Content="Add Item" Click="AddOrderDetail_Clicked"/>
     </Grid>
     <DataGrid Name="grdOrderDetails" Margin="3"/>
-  </DockPanel>
+  </DockPanel>-->
 </Window>

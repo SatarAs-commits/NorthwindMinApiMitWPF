@@ -2,10 +2,45 @@
 ##################################################
 
 
+################################################## customers
+GET {{baseUrl}}/customers
+#####
+
 ################################################## dbtest
 GET {{baseUrl}}/dbtest/Categories
 #####
 
 ################################################## employees
 GET {{baseUrl}}/employees
+#####
+
+################################################## orderdetails
+GET {{baseUrl}}/orderdetails?OrderId=1
+#####
+POST {{baseUrl}}/orderdetails
+Content-type: application/json
+
+{
+   "orderId": 1,
+   "productId": 1,
+   "amount": 1
+}
+#####
+
+################################################## orders
+DELETE {{baseUrl}}/orders/1
+#####
+GET {{baseUrl}}/orders?EmployeeId=1&CustomerId=abc
+#####
+POST {{baseUrl}}/orders
+Content-type: application/json
+
+{
+   "employeeId": 1,
+   "customerId": "abc"
+}
+#####
+
+################################################## products
+GET {{baseUrl}}/products
 #####
