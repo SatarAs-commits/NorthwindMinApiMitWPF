@@ -154,7 +154,11 @@ components:
       additionalProperties: false
       example:
         contactName: contactName
+        customerId: customerId
       properties:
+        customerId:
+          nullable: true
+          type: string
         contactName:
           nullable: true
           type: string

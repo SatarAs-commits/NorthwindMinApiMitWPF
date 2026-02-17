@@ -34,11 +34,19 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomerDto" /> class.
         /// </summary>
+        /// <param name="customerId">customerId.</param>
         /// <param name="contactName">contactName.</param>
-        public CustomerDto(string contactName = default)
+        public CustomerDto(string customerId = default, string contactName = default)
         {
+            this.CustomerId = customerId;
             this.ContactName = contactName;
         }
+
+        /// <summary>
+        /// Gets or Sets CustomerId
+        /// </summary>
+        [DataMember(Name = "customerId", EmitDefaultValue = true)]
+        public string CustomerId { get; set; }
 
         /// <summary>
         /// Gets or Sets ContactName
@@ -54,6 +62,7 @@ namespace Org.OpenAPITools.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class CustomerDto {\n");
+            sb.Append("  CustomerId: ").Append(CustomerId).Append("\n");
             sb.Append("  ContactName: ").Append(ContactName).Append("\n");
             sb.Append("}\n");
             return sb.ToString();

@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using RestSharp;
 using Org.OpenAPITools.Api;
 using Org.OpenAPITools.Model;
 
@@ -19,41 +20,72 @@ namespace MinApiWPF;
 public partial class MainWindow : Window
 {
   private const string BaseUrl = "http://localhost:5000";
-  private readonly MinApiBackendApi _api = new MinApiBackendApi(BaseUrl);
+  private readonly MinApiBackendApi _api = new(BaseUrl);
+
+  //var options = new RestClientOptions("http://localhost:5000");
+  //var _client = new RestClient(options);
+
+  //private readonly RestClient _client = new RestClient(new RestClientOptions("http://localhost:5000"));
+
   public MainWindow()
   {
     InitializeComponent();
+
+    
+
   }
 
   private void Window_Loaded(object sender, RoutedEventArgs e)
   {
-   FillCbosWithData();
-    
+    try
+    {
+      FillCbosWithData();
+      cboCustomers.SelectedIndex = 0;
+      cboEmployees.SelectedIndex = 3;
+      cboProducts.SelectedIndex = 0;
+    }
+    catch (Exception ex)
+    {
+      MessageBox.Show($"Fehler beim Starten: { ex.Message } ");
+    }
+
   }
 
   private void FillCbosWithData()
   {
-    var employees = _api.EmployeesGet();
-    cboEmployees.ItemsSource = employees;
-    cboEmployees.SelectedIndex = 0;
+    cboCustomers.ItemsSource= _api.CustomersGet();
 
-    var customers = _api.CustomersGet();
-    cboCustomers.ItemsSource = customers;
-    cboCustomers.DisplayMemberPath = Name;
-    cboCustomers.SelectedIndex = 0;
+    //var employees = _client.Get<List<EmployeeDto>>("employees");
+    cboEmployees.ItemsSource = _api.EmployeesGet();
+
+    cboProducts.ItemsSource = _api.ProductsGet();
 
   }
 
-  private void CboSelectionChanged(object sender, SelectionChangedEventArgs e)
+  private void CboSelectionChanged(object sender, SelectionChangedEventArgs e) => LoadOrders();
+
+  private void LoadOrders()
+  {
+    if(cboEmployees.SelectedIndex < 0 || cboCustomers.SelectedIndex < 0) { return; }
+
+    var selectedEmployee = (EmployeeDto)cboEmployees.SelectedItem;
+    var selectedCustomer = (CustomerDto)cboCustomers.SelectedItem;
+
+    var employeeId = selectedEmployee.EmployeeId;
+    var customerId = selectedCustomer.CustomerId;
+
+    var ordersList = _api.OrdersGet(employeeId, customerId);
+
+    grdOrders.ItemsSource = ordersList;
+
+    if (ordersList != null) { grdOrders.SelectedIndex = 0; }
+  }
+
+  private void GrdOrders_SelectionChanged(object sender, SelectionChangedEventArgs e) => LoadOrderDetails();
+  private void LoadOrderDetails()
   {
 
   }
-
-  private void GrdOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
-  {
-
-  }
-
   private void AddOrderDetail_Clicked(object sender, RoutedEventArgs e)
   {
 

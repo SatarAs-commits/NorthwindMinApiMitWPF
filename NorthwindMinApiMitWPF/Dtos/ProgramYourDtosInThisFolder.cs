@@ -2,10 +2,10 @@ namespace NorthwindMinApiMitWPF.Dtos;
 //public record EmployeeDto(int EmployeeId, string FirstName, string LastName);
 public record EmployeeDto(
   int EmployeeId,
-  string FirstName, 
-  string LastName);
+  string Name);
 
 public record CustomerDto(
+  string CustomerId,
   string ContactName);
 
 public record ProductDto(

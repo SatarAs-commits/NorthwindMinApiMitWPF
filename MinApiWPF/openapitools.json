@@ -6,7 +6,7 @@
     "generators": {
       "csharp": {
         "generatorName": "csharp",
-        "output": "./Swagger",
+        "output": "../Swagger",
         "inputSpec": "http://localhost:5000/swagger/v1/swagger.json",
         "library": "restsharp",
         "additionalProperties": {

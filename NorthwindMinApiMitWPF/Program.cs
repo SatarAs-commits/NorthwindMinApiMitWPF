@@ -67,11 +67,7 @@ app.MapGet("/employees", (NORTHWNDContext _db) =>
   return _db.Employees
     //.Select(x => x.TransformTo<EmployeeDto>());
     .Select(x => new EmployeeDto(
-      x.EmployeeId,
-      x.FirstName,
-      x.LastName
-      ))
-    ////.Select(x => new EmployeeDto().CopyFrom(x))
+      x.EmployeeId, $"{x.LastName} {x.FirstName}"))
     .ToList();
 });
 

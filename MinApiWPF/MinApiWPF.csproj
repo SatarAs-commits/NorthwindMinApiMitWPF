@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\POS_5.2\MinApiBackend\Swagger\src\Org.OpenAPITools\Org.OpenAPITools.csproj" />
+    <ProjectReference Include="..\Swagger\src\Org.OpenAPITools\Org.OpenAPITools.csproj" />
   </ItemGroup>
 
 </Project>

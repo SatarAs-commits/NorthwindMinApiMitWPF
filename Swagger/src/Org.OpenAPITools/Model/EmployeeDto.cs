@@ -35,13 +35,13 @@ namespace Org.OpenAPITools.Model
         /// Initializes a new instance of the <see cref="EmployeeDto" /> class.
         /// </summary>
         /// <param name="employeeId">employeeId.</param>
-        /// <param name="firstName">firstName.</param>
-        /// <param name="lastName">lastName.</param>
-        public EmployeeDto(int employeeId = default, string firstName = default, string lastName = default)
+        /// <param name="Name">firstName.</param>
+        // <param name="lastName">lastName.</param >
+        public EmployeeDto(int employeeId = default, string Name = default)
         {
             this.EmployeeId = employeeId;
-            this.FirstName = firstName;
-            this.LastName = lastName;
+            this.Name = Name;
+            
         }
 
         /// <summary>
@@ -53,14 +53,14 @@ namespace Org.OpenAPITools.Model
         /// <summary>
         /// Gets or Sets FirstName
         /// </summary>
-        [DataMember(Name = "firstName", EmitDefaultValue = true)]
-        public string FirstName { get; set; }
+        [DataMember(Name = "Name", EmitDefaultValue = true)]
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or Sets LastName
         /// </summary>
-        [DataMember(Name = "lastName", EmitDefaultValue = true)]
-        public string LastName { get; set; }
+        //[DataMember(Name = "lastName", EmitDefaultValue = true)]
+        //public string LastName { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -71,8 +71,8 @@ namespace Org.OpenAPITools.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class EmployeeDto {\n");
             sb.Append("  EmployeeId: ").Append(EmployeeId).Append("\n");
-            sb.Append("  FirstName: ").Append(FirstName).Append("\n");
-            sb.Append("  LastName: ").Append(LastName).Append("\n");
+            sb.Append("  FirstName: ").Append(Name).Append("\n");
+            //sb.Append("  LastName: ").Append(LastName).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -92,7 +92,7 @@ namespace Org.OpenAPITools.Model
         /// <param name="validationContext">Validation context</param>
         /// <returns>Validation Result</returns>
         IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
+        { 
             yield break;
         }
     }

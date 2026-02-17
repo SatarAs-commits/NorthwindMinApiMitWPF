@@ -11,18 +11,8 @@
   <DockPanel>
     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
       <Label Content="Employee"/>
-      <ComboBox Name="cboEmployees"
-SelectionChanged="CboSelectionChanged" Width="150">
-        <ComboBox.ItemTemplate>
-          <DataTemplate>
-            <StackPanel Orientation="Horizontal">
-              <TextBlock Text="{Binding LastName}"/>
-              <TextBlock Text=" "></TextBlock>
-              <TextBlock Text="{Binding FirstName}"></TextBlock>
-            </StackPanel>
-          </DataTemplate>
-        </ComboBox.ItemTemplate>
-      </ComboBox>
+      <ComboBox Name="cboEmployees" DisplayMemberPath="Name"
+SelectionChanged="CboSelectionChanged" Width="150"/>
       <Label Content="Customer"/>
       <ComboBox Name="cboCustomers" DisplayMemberPath="ContactName"
  SelectionChanged="CboSelectionChanged" Width="150"/>
@@ -32,12 +22,12 @@ SelectionChanged="CboSelectionChanged" Width="150">
     <DataGrid DockPanel.Dock="Left" Name="grdOrders" Width="265" Margin="3"
               AutoGenerateColumns="False" IsReadOnly="True"
  SelectionChanged="GrdOrders_SelectionChanged">
-      <DataGrid>
-        <DataGrid.Columns>
-          <DataGridTextColumn Header="Order-ID" Binding="{Binding OrderId}"></DataGridTextColumn>
-          <DataGridTextColumn Header="Datum" Binding="{Binding OrderDate, StringFormat=d}"></DataGridTextColumn>
-        </DataGrid.Columns>
-      </DataGrid>
+
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Order-ID" Binding="{Binding OrderId}"></DataGridTextColumn>
+        <DataGridTextColumn Header="Datum" Binding="{Binding OrderDate, StringFormat=d}"></DataGridTextColumn>
+      </DataGrid.Columns>
+
     </DataGrid>
     <Grid DockPanel.Dock="Right" Width="190" Margin="3">
       <Grid.RowDefinitions>
@@ -51,7 +41,7 @@ SelectionChanged="CboSelectionChanged" Width="150">
       </Grid.ColumnDefinitions>
       <Label Content="Product" Grid.Row="0" Grid.Column="0"/>
       <Label Content="Amount" Grid.Row="1" Grid.Column="0"/>
-      <ComboBox Name="cboProducts" DisplayMemberPath="Name" Grid.Row="0" Grid.Column="1"/>
+      <ComboBox Name="cboProducts" DisplayMemberPath="ProductName" Grid.Row="0" Grid.Column="1"/>
       <TextBox Name="txtQuantity" Text="66" Grid.Row="1" Grid.Column="1"/>
       <Button Grid.Row="2" Grid.Column="1" Content="Add Item" Click="AddOrderDetail_Clicked"/>
     </Grid>
