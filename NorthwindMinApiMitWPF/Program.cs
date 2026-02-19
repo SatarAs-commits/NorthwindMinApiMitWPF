@@ -110,6 +110,7 @@ app.MapGet("/orderdetails", (int OrderId, NORTHWNDContext _db) =>
 
 app.MapPost("/orders", (OrderPostDto dto, NORTHWNDContext _db) =>
 {
+
   var newOrder = new Order
   {
     EmployeeId = dto.EmployeeId,

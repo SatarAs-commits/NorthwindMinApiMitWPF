@@ -31,7 +31,7 @@ public partial class MainWindow : Window
   {
     InitializeComponent();
 
-    
+
 
   }
 
@@ -46,14 +46,14 @@ public partial class MainWindow : Window
     }
     catch (Exception ex)
     {
-      MessageBox.Show($"Fehler beim Starten: { ex.Message } ");
+      MessageBox.Show($"Fehler beim Starten: {ex.Message} ");
     }
 
   }
 
   private void FillCbosWithData()
   {
-    cboCustomers.ItemsSource= _api.CustomersGet();
+    cboCustomers.ItemsSource = _api.CustomersGet();
 
     //var employees = _client.Get<List<EmployeeDto>>("employees");
     cboEmployees.ItemsSource = _api.EmployeesGet();
@@ -66,7 +66,7 @@ public partial class MainWindow : Window
 
   private void LoadOrders()
   {
-    if(cboEmployees.SelectedIndex < 0 || cboCustomers.SelectedIndex < 0) { return; }
+    if (cboEmployees.SelectedIndex < 0 || cboCustomers.SelectedIndex < 0) { return; }
 
     var selectedEmployee = (EmployeeDto)cboEmployees.SelectedItem;
     var selectedCustomer = (CustomerDto)cboCustomers.SelectedItem;
@@ -84,20 +84,82 @@ public partial class MainWindow : Window
   private void GrdOrders_SelectionChanged(object sender, SelectionChangedEventArgs e) => LoadOrderDetails();
   private void LoadOrderDetails()
   {
+    if (grdOrders.SelectedIndex < 0) { return; }
+    var selectedOrder = (OrderDto)grdOrders.SelectedItem;
 
+    var orderDetailsList = _api.OrderdetailsGet(selectedOrder.OrderId);
+
+    grdOrderDetails.ItemsSource = orderDetailsList;
+    grdOrderDetails.SelectedIndex = 0;
   }
   private void AddOrderDetail_Clicked(object sender, RoutedEventArgs e)
   {
+    try
+    {
+      if (grdOrders.SelectedIndex < 0
+        || cboProducts.SelectedIndex < 0
+        || !int.TryParse(txtQuantity.Text.Trim(), out int quantity)) { return; }
 
+      var selectedOrder = (OrderDto)grdOrders.SelectedItem;
+      int currentOrderId = selectedOrder.OrderId;
+
+      var selectedProduct = (ProductDto)cboProducts.SelectedItem;
+
+      var orderDetailsDto = new OrderdetailPostDto()
+      {
+        OrderId = selectedOrder.OrderId,
+        ProductId = selectedProduct.ProductId,
+        Amount = quantity
+      };
+        
+      
+      _api.OrderdetailsPost(orderDetailsDto);
+      LoadOrderDetails();
+    }
+    catch (Exception ex)
+    {
+      MessageBox.Show(ex.Message);
+    }
   }
 
   private void BtnNewOrder_Clicked(object sender, RoutedEventArgs e)
   {
+    if(cboCustomers.SelectedIndex < 0 || cboEmployees.SelectedIndex < 0) { return; }
 
+    try
+    {
+      var selectedEmployee = (EmployeeDto)cboEmployees.SelectedItem;
+      var selectedCustomer = (CustomerDto)cboCustomers.SelectedItem;
+
+      var newOrder = new OrderPostDto()
+      {
+        EmployeeId = selectedEmployee.EmployeeId,
+        CustomerId = selectedCustomer.CustomerId,
+      };
+
+      _api.OrdersPost(newOrder);
+      LoadOrders();
+    }catch(Exception ex)
+    {
+      MessageBox.Show(ex.Message); 
+    }
   }
 
   private void BtnDeleteOrder_Clicked(object sender, RoutedEventArgs e)
   {
+    if(cboCustomers.SelectedIndex < 0 || cboEmployees.SelectedIndex < 0 ) { return; }
 
+    try
+    {
+      var order = (OrderDto)grdOrders.SelectedItem;
+      if(grdOrders.SelectedIndex > 0)
+      {
+        _api.OrdersIdDelete(order.OrderId);
+        LoadOrders();
+      }
+    }catch(Exception ex)
+    {
+      MessageBox.Show(ex.Message); 
+    }
   }
 }

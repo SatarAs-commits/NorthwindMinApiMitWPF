@@ -44,16 +44,18 @@ namespace Org.OpenAPITools.Model
             this.Amount = amount;
         }
 
-        /// <summary>
-        /// Gets or Sets OrderId
-        /// </summary>
-        [DataMember(Name = "orderId", EmitDefaultValue = false)]
-        public int OrderId { get; set; }
 
-        /// <summary>
-        /// Gets or Sets ProductId
-        /// </summary>
-        [DataMember(Name = "productId", EmitDefaultValue = false)]
+
+    /// <summary>
+    /// Gets or Sets OrderId
+    /// </summary>
+    [DataMember(Name = "orderId", EmitDefaultValue = false)]
+    public int OrderId { get; set; }
+
+    /// <summary>
+    /// Gets or Sets ProductId
+    /// </summary>
+    [DataMember(Name = "productId", EmitDefaultValue = false)]
         public int ProductId { get; set; }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace Org.OpenAPITools.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class OrderdetailPostDto {\n");
-            sb.Append("  OrderId: ").Append(OrderId).Append("\n");
+            //sb.Append("  OrderId: ").Append(OrderId).Append("\n");
             sb.Append("  ProductId: ").Append(ProductId).Append("\n");
             sb.Append("  Amount: ").Append(Amount).Append("\n");
             sb.Append("}\n");

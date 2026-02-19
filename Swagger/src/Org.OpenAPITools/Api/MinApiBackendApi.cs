@@ -1755,5 +1755,6 @@ namespace Org.OpenAPITools.Api
             return localVarResponse;
         }
 
-    }
+    public void OrderdetailsPost(int orderDetailId, OrderdetailPostDto orderDetailsDto) => throw new NotImplementedException();
+  }
 }

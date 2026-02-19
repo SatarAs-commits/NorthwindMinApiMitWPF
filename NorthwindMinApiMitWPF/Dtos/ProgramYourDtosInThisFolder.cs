@@ -9,6 +9,7 @@ public record CustomerDto(
   string ContactName);
 
 public record ProductDto(
+  int ProductId,
   string ProductName);
 public record OrderDto(
   int  OrderId, 

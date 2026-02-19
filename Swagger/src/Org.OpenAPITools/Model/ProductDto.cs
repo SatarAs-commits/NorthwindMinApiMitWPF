@@ -31,19 +31,29 @@ namespace Org.OpenAPITools.Model
     [DataContract(Name = "ProductDto")]
     public partial class ProductDto : IValidatableObject
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProductDto" /> class.
-        /// </summary>
-        /// <param name="productName">productName.</param>
-        public ProductDto(string productName = default)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ProductDto" /> class.
+    /// </summary>
+    /// <param name="productId">productName.</param>
+    /// <param name="productName">productName.</param>
+    public ProductDto(int productId = default, string productName = default)
         {
+            this.ProductId = productId;
             this.ProductName = productName;
         }
 
-        /// <summary>
-        /// Gets or Sets ProductName
-        /// </summary>
-        [DataMember(Name = "productName", EmitDefaultValue = true)]
+
+    /// <summary>
+    /// Gets or Sets ProductId
+    /// </summary>
+
+    [DataMember(Name= "ProductId",  EmitDefaultValue=true)]
+        public int ProductId { get; }
+
+    /// <summary>
+    /// Gets or Sets ProductName
+    /// </summary>
+    [DataMember(Name = "productName", EmitDefaultValue = true)]
         public string ProductName { get; set; }
 
         /// <summary>
@@ -54,6 +64,7 @@ namespace Org.OpenAPITools.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class ProductDto {\n");
+            sb.Append(" ProductId: ").Append(ProductId).Append("\n");
             sb.Append("  ProductName: ").Append(ProductName).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
